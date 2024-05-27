@@ -57,6 +57,8 @@ const Login = () => {
   const handleLogin = () => {
     if (login && password) {
       onSubmit({ login, password });
+    } else {
+      displayError("Заполните все поля");
     }
   };
 
