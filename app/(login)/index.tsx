@@ -13,14 +13,13 @@ import { md5 } from "js-md5";
 import { loginUser } from "@/services/user";
 import Navbar from "@/components/login/Navbar";
 import Logo from "../../assets/svg/logo.svg";
-import Show from "../../assets/svg/show.svg";
-import Hide from "../../assets/svg/hide.svg";
+import PasswordInput from "@/components/login/PasswordInput";
+import EmailInput from "@/components/login/EmailInput";
 
 const Login = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isVisible, setIsVisible] = useState(false);
 
   const displayError = (error: string) => {
     setError(error);
@@ -86,37 +85,11 @@ const Login = () => {
       <View style={styles.container}>
         <Logo width={150} height={170} />
         <View style={styles.inputContainer}>
-          <View>
-            <Text style={styles.inputTitle}>Email / Телефон</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="example@gmail.com"
-              placeholderTextColor={"gray"}
-              value={login}
-              onChangeText={handleLoginChange}
-            />
-          </View>
-          <View style={styles.passwordContainer}>
-            <Text style={styles.inputTitle}>Пароль</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Ввелите пароль"
-              placeholderTextColor={"gray"}
-              value={password}
-              onChangeText={handlePasswordChange}
-              secureTextEntry={!isVisible}
-            />
-            <TouchableOpacity
-              style={styles.toggleButton}
-              onPress={() => setIsVisible(!isVisible)}
-            >
-              {isVisible ? (
-                <Hide width={24} height={24} />
-              ) : (
-                <Show width={24} height={24} />
-              )}
-            </TouchableOpacity>
-          </View>
+          <EmailInput handleLogin={handleLoginChange} login={login} />
+          <PasswordInput
+            handlePassword={handlePasswordChange}
+            password={password}
+          />
           <TouchableOpacity>
             <Text style={styles.forgotLink}>Забыли пароль?</Text>
           </TouchableOpacity>
@@ -156,32 +129,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     gap: 15,
   },
-  inputTitle: {
-    marginBottom: 5,
-    color: "#ffffff",
-  },
-  input: {
-    height: 40,
-    width: 300,
-    borderColor: "gray",
-    color: "#FFFFFF",
-    borderWidth: 1,
-    paddingHorizontal: 10,
-  },
   forgotLink: {
     color: "#4CB8E9",
     marginBottom: 20,
   },
   submitBtnContainer: {
     width: 300,
-  },
-  passwordContainer: {
-    position: "relative",
-    width: 300,
-  },
-  toggleButton: {
-    position: "absolute",
-    right: 10,
-    top: 35,
   },
 });
